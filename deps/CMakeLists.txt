@@ -17,7 +17,7 @@ endif()
 #  (3) Invoke find_package() (if no suitable Eigen is found, will proceed to next step)
 #  (4) Download Eigen into the source tree
 
-message("--  resolving Eigen dependency:")
+message(STATUS "--  resolving Eigen dependency:")
 
 set(GC_EIGEN_LOCATION "" CACHE STRING "Path to Eigen installation. Only needed if Eigen is not already available in CMAKE, will not be found by find_package(), and should not be auto-downloaded.")
 set(GC_ALWAYS_DOWNLOAD_EIGEN "OFF" CACHE BOOL "Prefer to auto-download a copy Eigen if a system copy might exist.")
@@ -100,21 +100,21 @@ list(APPEND GC_DEP_LIBS Eigen3::Eigen)
 # Look for suitesparse (adapted from ceres build system)
 option(SUITESPARSE "Enable SuiteSparse." ON)
 if (SUITESPARSE)
-  message("-- Searching for SuiteSparse.")
+  message(STATUS "-- Searching for SuiteSparse.")
 
   # Check for SuiteSparse and dependencies.
   find_package(SuiteSparse)
   if (SUITESPARSE_FOUND)
     # By default, if all of SuiteSparse's dependencies are found, GC is
     # built with SuiteSparse support.
-    message("-- Found SuiteSparse ${SUITESPARSE_VERSION}, building with SuiteSparse.")
+    message(STATUS "-- Found SuiteSparse ${SUITESPARSE_VERSION}, building with SuiteSparse.")
   else (SUITESPARSE_FOUND)
     # Disable use of SuiteSparse if it cannot be found and continue.
     message("-- Did not find all SuiteSparse dependencies, disabling SuiteSparse support.")
     update_cache_variable(SUITESPARSE OFF)
   endif (SUITESPARSE_FOUND)
 else (SUITESPARSE)
-  message("-- Building without SuiteSparse.")
+  message(STATUS "-- Building without SuiteSparse.")
 endif (SUITESPARSE)
 
 # HACK BY NICK
@@ -123,7 +123,7 @@ endif (SUITESPARSE)
 # as cholmod
 if(SUITESPARSE AND SUITESPARSE_FOUND)
     string(REGEX REPLACE "cholmod" "umfpack" UMFPACK_LIBRARY ${CHOLMOD_LIBRARY})
-    message("-- Guesstimated umfpack location as: ${UMFPACK_LIBRARY}")
+    message(STATUS "-- Guesstimated umfpack location as: ${UMFPACK_LIBRARY}")
     if(EXISTS ${UMFPACK_LIBRARY})
         list(APPEND SUITESPARSE_LIBRARIES ${UMFPACK_LIBRARY})
     else()
