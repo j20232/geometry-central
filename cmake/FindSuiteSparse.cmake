@@ -375,6 +375,7 @@ if (SUITESPARSEQR_FOUND)
   # we assume that if TBB is installed, SuiteSparseQR was compiled with
   # support for it, this will do no harm if it wasn't.
 
+  unset(TBB_LIBRARIES)
   set(TBB_LIBRARIES $ENV{TBB_LIBRARIES} CACHE STRING "Path to TBB libraries.")
   set(TBB_FOUND TRUE)
   find_library(TBB_LIBRARIES NAMES tbb
@@ -394,6 +395,7 @@ if (SUITESPARSEQR_FOUND)
   mark_as_advanced(TBB_LIBRARIES)
 
   if (TBB_FOUND)
+    unset(TBB_MALLOC_LIB)
     set(TBB_MALLOC_LIB $ENV{TBB_MALLOC_LIB} CACHE STRING "Path to TBB malloc libraries.")
     find_library(TBB_MALLOC_LIB NAMES tbbmalloc
       PATHS ${SUITESPARSE_CHECK_LIBRARY_DIRS})
