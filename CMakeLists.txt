@@ -9,9 +9,9 @@ cmake_policy(SET CMP0054 NEW)   # don't implicitly dereference inside if()
 ### Process settings
 option(BUILD_SHARED_LIBS "Build the shared library" FALSE)
 if(BUILD_SHARED_LIBS)
-    message("-- Building SHARED libraries")
+    message(STATUS "-- Building SHARED libraries")
 else()
-    message("-- Building STATIC libraries")
+    message(STATUS "-- Building STATIC libraries")
 endif()
 
 
